@@ -1,0 +1,37 @@
+<%- include('partials/header', {title:title}); -%>
+
+<h1 class="title">Spotify Data</h1>
+
+<div class="row search">
+
+    <div class="col-lg-3 col-md-2 col-1"></div>
+
+    <div class="col-lg-6 col-md-8 col-10">
+
+        <form action="/" method="post">
+
+            <div class="input-group mb-3">
+                <input id="search-query" name="query" type="text" class="form-control" placeholder="search for artist" aria-label="search for artist" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                <button id="search-btn" class="btn btn-outline-secondary" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
+                
+            </div>
+            <small id="error" class="form-text text-muted">The artist could not be found. Please try again.</small>
+
+        </form>
+
+    </div>
+
+    <div class="col-lg-3 col-md-2 col-1"></div>
+
+
+
+</div>
+
+<div class="madeby">
+    <div class="animate__animated animate__pulse">
+        made by <a href="">@FredAdkins_</a>
+    </div>
+    
+</div>

@@ -1,0 +1,160 @@
+body{
+    font-family: 'Roboto', sans-serif;
+    font-family: 'Circular Std', sans-serif;
+}
+
+a{
+    text-decoration: none;
+}
+
+.btn-primary:hover,.btn-primary:focus,.btn-primary:active, 
+.btn-primary:active:focus:not(:disabled):not(.disabled),
+.btn:focus, .btn:active, .btn:hover{
+    box-shadow: none!important;
+    outline: 0;
+}
+
+.btn:active{
+    background-color: black;
+    color: white;
+}
+
+
+/* Nav */
+.nav{
+    padding-top: 20px;
+    margin-bottom: 10vh;
+    
+}
+.nav-link{
+    color: black;
+}
+
+.active{
+    text-decoration: underline;
+    
+}
+
+a{
+    color: black;
+}
+
+/* search */
+
+.title{
+    text-align: center;
+    margin-top: 10vh;
+}
+
+.search{
+    margin-top: 10vh;
+}
+
+.search button{
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+.search button:hover{
+    background-color: black;
+}
+
+.madeby{
+    display: flex;
+    justify-content: center;
+    
+    margin-top: 45vh;
+}
+
+.madeby div {
+    border: 1px solid black;
+    padding: 10px;
+}
+
+#error{
+    color: red;
+}
+
+#error:not(:target) {
+	visibility: hidden;
+}
+#error:target {
+	visibility: visible;
+}
+
+/* artist page */
+.artist-profile{
+    margin-bottom: 20px;
+}
+.artist-profile h2{
+    margin-top: 10px;
+}
+
+.artist-picture{
+    width: 100%;
+    padding-bottom: 100%;
+    position: relative;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+   justify-items: center;
+}
+
+.artist-picture img{
+    width: 94%;
+    position: absolute;
+    top: 3%;
+}
+
+.line{
+    border-bottom: 1px solid black;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.tabs{
+    margin-bottom: 10px;
+}
+
+.btn-tabs{
+    border: 1px solid black;
+    padding: 5px;
+    transition-duration: 200ms;
+}
+
+.btn-tabs:hover{
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    transition-duration: 200ms;
+}
+
+.btn-active{
+    background-color: black;
+    color: white;
+    
+}
+
+/* .btn-active:hover{
+    background-color: white;
+    color: black;
+} */
+
+/* table */
+.data{
+    width: 100%;
+}
+
+table img{
+    height: 20px;
+    width: auto;
+}
+
+tr td:nth-child(1), tr th:nth-child(1){
+    text-align: center;
+}
+
+tr td:nth-child(4), tr th:nth-child(4){
+    text-align: right;
+}

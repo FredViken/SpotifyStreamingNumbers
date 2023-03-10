@@ -1,0 +1,165 @@
+<%- include('partials/header', {title:title}); -%>
+<div class="row">
+    <div class="col-1"></div>
+    <div class="col-10">
+        <div class="row">
+
+        <div class="col-lg-3 col-md-3 col-12 artist-profile">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-6">
+                   <div class="artist-picture">
+                    <img src="<%=artist.img %>" alt="">
+                </div> 
+                </div>
+                
+
+                <div class="col-lg-12 col-md-12 col-6">
+                    <h2><%=artist.name %></h2>
+                    <h5><i class="fa-solid fa-headphones-simple"></i>  <%=artist.monthlyListeners.toLocaleString("en-US") %></h5>
+                    <h5><i class="fa-solid fa-user-plus"></i> <%=artist.followers.toLocaleString("en-US") %></h5>
+                    
+                    <div class="d-none d-sm-block">
+                        <div class="line"></div>
+                        <h5><i class="fa-solid fa-location-dot"></i> top cities</h5>
+                        <ol>
+                        <% artist.topCities.forEach( city => {%>
+            
+                            <li><%=city.city %> - <%=city.numberOfListeners.toLocaleString("en-US") %></li>
+            
+                        <%}) %>  
+                        </ol>
+                    </div>
+                </div>
+                
+                
+            </div>
+            
+            
+
+        </div>
+        <div class="col-lg-9 col-md-9 col-12">
+            <div class="tabs">
+                <a class="rounded-pill btn-tabs" id="topSongs" onclick="changeTab(this)">top songs</a>
+                <a class="rounded-pill btn-tabs" id="albums" onclick="changeTab(this)">albums</a>
+            </div>
+
+            <div class="data">
+
+
+            </div>
+
+
+        </div>
+    
+    
+    </div>
+    <div class="col-1"></div>
+    </div>
+    
+</div>
+
+<script>
+
+    const artist = <%-JSON.stringify(artist)%>;
+    
+    let dataEl = document.querySelector('.data');
+    
+
+    function changeTab(e){
+        document.querySelectorAll('.btn-tabs').forEach( btn => {btn.classList.remove('btn-active');})
+        if(e.id == 'topSongs'){
+            document.querySelector('#topSongs').classList.add('btn-active');
+            console.log('songs');
+            topSongs()
+        } else if (e.id == 'albums'){
+            document.querySelector('#albums').classList.add('btn-active');
+            
+            console.log('albums');
+        }
+    }
+
+    function topSongs(){
+        let list = []
+        let checklist = []
+        let checklistid = []
+        artist.discography.forEach(album => {
+            album.tracks.forEach(track => {
+                let exists = false
+
+                for(let i = 0; i<list.length; i++){
+                    if(list[i].streams == track.streams){
+                        if(list[i].name > track.name && list[i].name.includes(track.name)){
+                            list[i].name = track.name;
+                            
+                        }
+                        exists = true;
+                    }
+                    if((checklistid[i] == track.uid) || ((checklist[i].split('$%')[0] == track.name) && ((Number(checklist[i].split('$%')[1]) < (track.streams-track.streams*0.05)) && ((Number(checklist[i].split('$%')[1]) > (track.streams+track.streams*0.05)))))){
+                        if(list[i].streams < track.streams){
+                            list[i].streams = track.streams;
+                        }
+                        exists = true;
+                    }
+                }
+                console.log(track);
+                if(!checklist.includes(track.name + '$%' + track.streams) && (exists == false)){
+
+                    checklist.push(track.name + '$%' + track.streams);
+                    checklistid.push(track.uid)
+                    list.push({
+                        name:track.name,
+                        streams:track.streams,
+                        img: track.img,
+                        uid: track.uid
+                    })
+                }
+                
+            })
+        })
+
+        list.sort((a, b) => b.streams - a.streams);
+        let content = '<h5>Total: {total}</h5><table><tr><th>#</th><th></th><th>Song</th><th>Streams</th></tr>'
+            
+        let rank = 1;
+        let sum = 0;
+        list.forEach(item => {
+            content += '<tr>';
+            content += '<td>' + rank + '</td>';
+            content += '<td><img src="' + item.img + '" alt=""></td>';
+            content += '<td>' + item.name + '</td>';
+            content += '<td>' + Number(item.streams).toLocaleString("en-US") + '</td>';
+            content += '</tr>'
+            //content += '<li>' + item.name + ' - ' + Number(item.streams).toLocaleString("en-US") +'</li>'
+            rank+=1;
+            sum += Number(item.streams);
+        })
+
+        content += '<tr><td colspan="3">Total</td><td>'+ sum.toLocaleString("en-US") + '</td></tr>'
+
+        content = content.replace('{total}', sum.toLocaleString("en-US"))
+        
+        dataEl.innerHTML = content;
+
+    }
+
+    topSongs()
+
+
+</script>
+
+<!-- <table>
+    <th>
+        <td>#</td>
+        <td></td>
+        <td>Song</td>
+        <td>Streams</td>
+    </th>
+    <tr>
+        <td>1</td>
+        <td></td>
+        <td>Shallow</td>
+        <td>2,000,000,000</td>
+    </tr>
+</table> -->
+
+<img src="" alt="">
