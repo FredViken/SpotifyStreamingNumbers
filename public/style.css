@@ -136,13 +136,13 @@ a{
     
 }
 
-/* .btn-active:hover{
-    background-color: white;
-    color: black;
-} */
 
-/* table */
+/* table top songs*/
 .data{
+    width: 100%;
+}
+
+table{
     width: 100%;
 }
 
@@ -156,5 +156,35 @@ tr td:nth-child(1), tr th:nth-child(1){
 }
 
 tr td:nth-child(4), tr th:nth-child(4){
+    text-align: right;
+}
+
+.albums tr td:nth-child(3), .albums tr th:nth-child(3){
+    text-align: right;
+    
+}
+
+/* albums */
+.albums{
+    border: 1px solid black;
+    margin-bottom: 20px;
+    padding: 5%;
+}
+
+.total{
+    font-weight: bold;
+
+}
+
+.albums img{
+    width: 100%;
+    height: auto;
+}
+
+.total td:nth-child(2){
+    text-align: left;
+}
+
+.total td:nth-child(3){
     text-align: right;
 }

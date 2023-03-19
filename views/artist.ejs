@@ -12,7 +12,6 @@
                 </div> 
                 </div>
                 
-
                 <div class="col-lg-12 col-md-12 col-6">
                     <h2><%=artist.name %></h2>
                     <h5><i class="fa-solid fa-headphones-simple"></i>  <%=artist.monthlyListeners.toLocaleString("en-US") %></h5>
@@ -39,7 +38,7 @@
         </div>
         <div class="col-lg-9 col-md-9 col-12">
             <div class="tabs">
-                <a class="rounded-pill btn-tabs" id="topSongs" onclick="changeTab(this)">top songs</a>
+                <a class="rounded-pill btn-tabs btn-active" id="topSongs" onclick="changeTab(this)">top songs</a>
                 <a class="rounded-pill btn-tabs" id="albums" onclick="changeTab(this)">albums</a>
             </div>
 
@@ -55,6 +54,7 @@
     </div>
     <div class="col-1"></div>
     </div>
+
     
 </div>
 
@@ -69,13 +69,49 @@
         document.querySelectorAll('.btn-tabs').forEach( btn => {btn.classList.remove('btn-active');})
         if(e.id == 'topSongs'){
             document.querySelector('#topSongs').classList.add('btn-active');
-            console.log('songs');
+            
             topSongs()
         } else if (e.id == 'albums'){
             document.querySelector('#albums').classList.add('btn-active');
+            albums()
             
-            console.log('albums');
         }
+    }
+
+    function albums(){
+
+        const albums = artist.albums;
+        let content = ''
+
+
+        albums.forEach(album => {
+            let allAlbums = artist.discography;
+
+            for (let i = 0; i < allAlbums.length; i++) {
+                const object = allAlbums[i];
+  
+                
+                if (object.id == album.releases.items[0].id) {
+                    content += '<div class="albums">'
+                    content += '<h4>' +object.name + '</h4>'
+                    content += '<table>';
+                    content += '<tr><th>#</th><th>Track</th><th>Streams</th></tr>'
+                    let sum = 0
+                        object.tracks.forEach(t => {
+
+                            content += '<tr><td>' + t.trackNumber + '</td><td>' + t.name + '</td><td>' + Number(t.streams).toLocaleString("en-US") +'</td></tr>'
+                            sum += Number(t.streams);
+                        })
+                    content += '<tr class="total"><td></td><td>Total</td><td>' + sum.toLocaleString("en-US") + '</td></tr>'
+                    content += '</table></div>'
+                    break;
+                }
+                }
+
+        });
+
+        dataEl.innerHTML = content;
+
     }
 
     function topSongs(){
@@ -94,14 +130,13 @@
                         }
                         exists = true;
                     }
-                    if((checklistid[i] == track.uid) || ((checklist[i].split('$%')[0] == track.name) && ((Number(checklist[i].split('$%')[1]) < (track.streams-track.streams*0.05)) && ((Number(checklist[i].split('$%')[1]) > (track.streams+track.streams*0.05)))))){
+                    if((checklistid[i] == track.uid) || ((checklist[i].split('$%')[0] == track.name) && ((Number(checklist[i].split('$%')[1]) < (track.streams*1.05))) && ((Number(checklist[i].split('$%')[1]) > (track.streams*0.95))))){
                         if(list[i].streams < track.streams){
                             list[i].streams = track.streams;
                         }
                         exists = true;
                     }
                 }
-                console.log(track);
                 if(!checklist.includes(track.name + '$%' + track.streams) && (exists == false)){
 
                     checklist.push(track.name + '$%' + track.streams);
@@ -134,7 +169,6 @@
             sum += Number(item.streams);
         })
 
-        content += '<tr><td colspan="3">Total</td><td>'+ sum.toLocaleString("en-US") + '</td></tr>'
 
         content = content.replace('{total}', sum.toLocaleString("en-US"))
         
@@ -147,19 +181,3 @@
 
 </script>
 
-<!-- <table>
-    <th>
-        <td>#</td>
-        <td></td>
-        <td>Song</td>
-        <td>Streams</td>
-    </th>
-    <tr>
-        <td>1</td>
-        <td></td>
-        <td>Shallow</td>
-        <td>2,000,000,000</td>
-    </tr>
-</table> -->
-
-<img src="" alt="">
