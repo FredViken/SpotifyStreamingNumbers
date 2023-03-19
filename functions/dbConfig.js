@@ -9,5 +9,5 @@ const headerSchema = new mongoose.Schema({
 });
 
 const Headers = mongoose.model('headers', headerSchema);
-
+console.log('DB connected');
 module.exports = Headers;
