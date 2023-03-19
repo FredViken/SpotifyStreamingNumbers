@@ -42,13 +42,14 @@ app.post('/', async (req,res) => {
 })
 
 app.get('/:id', async (req,res) => {
-  const id = req.params.id;
-  let artist = await getArtist(id);
-  res.render('artist', {
-    title: artist.name,
-    artist: artist
-  })
-  
+  try{
+    const id = req.params.id;
+    let artist = await getArtist(id);
+    res.render('artist', {
+      title: artist.name,
+      artist: artist
+    })
+  } catch {}
 })
 
 
