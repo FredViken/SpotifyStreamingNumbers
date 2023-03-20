@@ -188,3 +188,10 @@ tr td:nth-child(4), tr th:nth-child(4){
 .total td:nth-child(3){
     text-align: right;
 }
+
+/* footer */
+
+footer{
+    height: 100px;
+    width: 100%;
+}
