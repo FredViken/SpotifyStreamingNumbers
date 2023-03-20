@@ -168,7 +168,7 @@ tr td:nth-child(4), tr th:nth-child(4){
 .albums{
     border: 1px solid black;
     margin-bottom: 20px;
-    padding: 5%;
+    padding:3%;
 }
 
 .total{
