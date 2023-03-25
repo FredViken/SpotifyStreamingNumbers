@@ -45,6 +45,7 @@ app.get('/:id', async (req,res) => {
   try{
     const id = req.params.id;
     let artist = await getArtist(id);
+    console.log(artist.name)
     res.render('artist', {
       title: artist.name,
       artist: artist
